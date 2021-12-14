@@ -15,10 +15,17 @@ input('Press Any Key To Continue...')"""
 
 def credits_window(dev1, dev2):
     credits_window = tk.Toplevel(root)
-    credits_window.wm_geometry("400x300")
+    credits_window.wm_geometry("400x200")
+    credits_window.resizable(False, False)
     plate = Canvas(credits_window, height=300, width=300)
-    label1 = tk.Label(plate, text="Details Of The Project Are As Follows:", font=("Arial, 12"))
-    label1.pack(pady=12)
+    label1 = tk.Label(plate, text="Developers Of The Project:", font=("Arial, 16"))
+    label1.pack(pady=10)
+    
+    names_lbl = tk.Label(plate, text=f"Presented By:\n\n1. {dev1}\n       2. {dev2}")
+    names_lbl.pack(pady=10)
+    teach_lbl = tk.Label(plate, text=f"Submitted To: Miss Beenish Noor")
+    teach_lbl.pack(pady=5)
+
     plate.pack()
 
 # Creating the main GUI Structure i.e. Root of the program

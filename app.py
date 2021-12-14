@@ -7,7 +7,7 @@ import os
 os.system("cls")
 print("+---------------- H E L L O  T H E R E ! -----------------+\n")
 t.sleep(0.2)
-print("+--- This Program Was Created By Wasif Ali & Marium Ilyas ---+\n")
+print("+--- This ATM System Was Created By Wasif Ali & Marium Ilyas ---+\n")
 input('Press Any Key To Continue...')
 
 root = tk.Tk()

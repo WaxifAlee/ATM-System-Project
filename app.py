@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import Message, ttk
+from tkinter import Canvas, Message, ttk
 from tkinter import Frame, filedialog
 import time as t
 import os
@@ -11,12 +11,20 @@ t.sleep(0.2)
 print("+--- This ATM System Was Created By Wasif Ali & Marium Ilyas ---+\n")
 input('Press Any Key To Continue...')"""
 
+# Defining the functions for creating new windows
+
+def credits_window(dev1, dev2):
+    credits_window = tk.Toplevel(root)
+    credits_window.wm_geometry("400x300")
+    plate = Canvas(credits_window, height=300, width=300)
+    label1 = tk.Label(plate, text="Details Of The Project Are As Follows:", font=("Arial, 12"))
+    label1.pack(pady=12)
+    plate.pack()
 
 # Creating the main GUI Structure i.e. Root of the program
 root = tk.Tk()
 root.resizable(False, False)
 root.title("ATM System")
-#root.geometry("768x480")
 # Giving a background canvas to the app
 
 canvas = tk.Canvas(root, height=400, width=400, bg="#B8E4F0")
@@ -25,8 +33,10 @@ canvas.pack()
 frame = Frame(root, bg="#98BAE7")
 frame.place(relheight=0.9, relwidth=0.9, relx=0.05, rely=0.05)
 
-label = tk.Label(frame, text="Login To The ATM System", padx=10, pady=40, font=("Poppins, 18"), bg="#98bae7")
+label = tk.Label(frame, text="Login To The ATM System", padx=10, pady=40, font=("sans-serif, 18"), bg="#98bae7")
 label.pack()
 
+btn_login = tk.Button(frame, text="Login", padx=40, pady=10).pack(pady=10)
+btn_credits = tk.Button(frame, text="About Developers", padx=8, pady=10, command=lambda: credits_window("Wasif Ali [FA21-BCS-035]", "Marium Ilyas [FA21-BCS-024]")).pack()
 
 root.mainloop()

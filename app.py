@@ -5,12 +5,12 @@ import time as t
 import os
 
 # Basic Credentials on the console
-os.system("cls")
+"""os.system("cls")
 print("+----------------  H E L L O  T H E R E  !! -----------------+\n")
 t.sleep(0.2)
 print("+--- This ATM System Was Created By Wasif Ali & Marium Ilyas ---+\n")
 input('Press Enter To Continue...')
-
+"""
 # Defining the functions for creating new windows
 
 
@@ -29,6 +29,18 @@ def credits_window(dev1, dev2):
 
     plate.pack()
 
+def passcode_window():
+    wrongTries = 1
+    passcode_window = tk.Toplevel(root)
+    passcode_window.wm_geometry("400x200")
+    passcode_window.resizable(False, False)
+    plate = Canvas(passcode_window, height=300, width=300)
+    label1 = tk.Label(plate, text="Enter Your Passcode", font=("Arial, 16"))
+    label1.pack(pady=10)
+    entry_passcode = ttk.Entry(plate)
+    entry_passcode.pack()
+    plate.pack()
+            
 
 # Creating the main GUI Structure i.e. Root of the program
 root = tk.Tk()
@@ -52,7 +64,8 @@ label = tk.Label(
 )
 label.pack()
 
-btn_login = tk.Button(frame, text="Login", padx=40, pady=10).pack(pady=10)
+btn_login = tk.Button(frame, text="Login", padx=40, pady=10,
+                      command=lambda: passcode_window()  ).pack(pady=10)
 btn_credits = tk.Button(
     frame,
     text="About Developers",

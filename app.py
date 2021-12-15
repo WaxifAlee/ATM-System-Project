@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import Canvas, Message, ttk
+from tkinter import Canvas, messagebox, ttk
 from tkinter import Frame
 import time as t
 import os
@@ -29,18 +29,37 @@ def credits_window(dev1, dev2):
 
     plate.pack()
 
+
+def proceed(password):
+
+    try:
+        password = int(password)
+        if password > 999 and password <= 9999:
+            print("Correct Password!")
+        else:
+            raise Exception
+    except Exception:
+        messagebox.showerror(
+            title="Error",
+            message="Invalid Input! \nOnly a 4 digits numberic value is allowed.",
+        )
+
+
 def passcode_window():
-    wrongTries = 1
     passcode_window = tk.Toplevel(root)
     passcode_window.wm_geometry("400x200")
     passcode_window.resizable(False, False)
     plate = Canvas(passcode_window, height=300, width=300)
-    label1 = tk.Label(plate, text="Enter Your Passcode", font=("Arial, 16"))
+    label1 = tk.Label(plate, text="Insert Your Passcode", font=("Arial, 16"))
     label1.pack(pady=10)
-    entry_passcode = ttk.Entry(plate)
+    passcode = tk.StringVar()
+    entry_passcode = ttk.Entry(plate, textvariable=passcode)
     entry_passcode.pack()
-    plate.pack()
-            
+    btn_check_passcode = ttk.Button(
+        plate, text="OK", command=lambda: proceed(passcode.get())
+    ).pack(pady=10)
+    plate.pack(pady=40)
+
 
 # Creating the main GUI Structure i.e. Root of the program
 root = tk.Tk()
@@ -64,8 +83,11 @@ label = tk.Label(
 )
 label.pack()
 
-btn_login = tk.Button(frame, text="Login", padx=40, pady=10,
-                      command=lambda: passcode_window()  ).pack(pady=10)
+btn_login = tk.Button(
+    frame, text="Login", padx=40, pady=10, command=lambda: passcode_window(False)
+).pack(pady=10)
+
+
 btn_credits = tk.Button(
     frame,
     text="About Developers",
@@ -77,5 +99,3 @@ btn_credits = tk.Button(
 ).pack()
 
 root.mainloop()
-
-# Wasif Ali

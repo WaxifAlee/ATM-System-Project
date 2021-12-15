@@ -35,28 +35,35 @@ def proceed(password):
     try:
         password = int(password)
         if password > 999 and password <= 9999:
-            print("Correct Password!")
+            main_window = tk.Toplevel(root, bg="#97BFB4")
+            main_window.wm_geometry("800x500")
+            main_window.resizable(False, False)
+            #main_canva = tk.Canvas(main_window, height=500, width=800).place(x=0, y=0)
+            #first_frame = tk.Frame(main_window, bg="#F5EEDC").place(relwidth=0.9, relheight=0.9, rely=0.05, relx=0.05)
+            welcome_label = tk.Label(main_window, font=("arial, 18"), text=f"Welcome Wasif!", bg="#97BFBF")
+            welcome_label.place(x=15, y=15)
+
         else:
             raise Exception
-    except Exception:
+    except Exception as Error:
         messagebox.showerror(
             title="Error",
             message="Invalid Input! \nOnly a 4 digits numberic value is allowed.",
         )
-
+     ###   print(Error)
 
 def passcode_window():
     passcode_window = tk.Toplevel(root)
-    passcode_window.wm_geometry("400x200")
+    passcode_window.wm_geometry("300x200")
     passcode_window.resizable(False, False)
-    plate = Canvas(passcode_window, height=300, width=300)
+    plate = Canvas(passcode_window, height=200, width=300)
     label1 = tk.Label(plate, text="Insert Your Passcode", font=("Arial, 16"))
     label1.pack(pady=10)
     passcode = tk.StringVar()
     entry_passcode = ttk.Entry(plate, textvariable=passcode)
     entry_passcode.pack()
     btn_check_passcode = ttk.Button(
-        plate, text="OK", command=lambda: proceed(passcode.get())
+        plate, text="OK", command=lambda: proceed(passcode.get()), width=20
     ).pack(pady=10)
     plate.pack(pady=40)
 

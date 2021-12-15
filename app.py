@@ -1,4 +1,5 @@
-import tkinter as tk
+import tkinter as tk # For Making GUI
+import openpyxl as op # For Working with Excel File
 from tkinter import Canvas, messagebox, ttk
 from tkinter import Frame
 import time as t
@@ -11,6 +12,38 @@ t.sleep(0.2)
 print("+--- This ATM System Was Created By Wasif Ali & Marium Ilyas ---+\n")
 input('Press Enter To Continue...')
 """
+
+wb = op.load_workbook("users_info.xlsx", read_only=True)
+sheet = wb.worksheets[0]
+
+def passcode_available(code):
+    row = 1
+    while row <= sheet._max_row:
+        if ( sheet.cell(row=row, column=5).value == code ):
+            return True, row
+        else:
+            row += 1
+    else:
+        return False
+
+def get_user_info(row: int):
+    name = sheet.cell(row=row, column=1).value
+    age = sheet.cell(row=row, column=2).value
+    cnic = sheet.cell(row=row, column=3).value
+    balance = sheet.cell(row=row, column=4).value
+    account_type = sheet.cell(row=row, column=6).value
+    occupation = sheet.cell(row=row, column=7).value
+
+    return {
+        'name': name,
+        'age': age,
+        'cnic': cnic,
+        'balance': balance,
+        'account_type': account_type,
+        'occupation': occupation
+    }
+
+
 # Defining the functions for creating new windows
 
 
@@ -32,25 +65,26 @@ def credits_window(dev1, dev2):
 
 def proceed(password):
 
-    try:
+    #try:
         password = int(password)
         if password > 999 and password <= 9999:
-            main_window = tk.Toplevel(root, bg="#97BFB4")
-            main_window.wm_geometry("800x500")
-            main_window.resizable(False, False)
-            #main_canva = tk.Canvas(main_window, height=500, width=800).place(x=0, y=0)
-            #first_frame = tk.Frame(main_window, bg="#F5EEDC").place(relwidth=0.9, relheight=0.9, rely=0.05, relx=0.05)
-            welcome_label = tk.Label(main_window, font=("arial, 18"), text=f"Welcome Wasif!", bg="#97BFBF")
-            welcome_label.place(x=15, y=15)
+            if(passcode_available(password)[0]):
+                row = passcode_available(password)[1]
+                main_window = tk.Toplevel(root, bg="#97BFB4")
+                main_window.wm_geometry("800x500")
+                main_window.resizable(False, False)
+                welcome_label = tk.Label(main_window, font=("arial, 18"), text=f"Welcome !", bg="#97BFBF")
+                welcome_label.place(x=15, y=15)
+                print(get_user_info(row))
 
         else:
             raise Exception
-    except Exception as Error:
-        messagebox.showerror(
-            title="Error",
-            message="Invalid Input! \nOnly a 4 digits numberic value is allowed.",
-        )
-     ###   print(Error)
+    #except Exception as Error:
+    #    messagebox.showerror(
+    #        title="Error",
+    #        message="Invalid Input! \nOnly a 4 digits numberic value is allowed.",
+    #    )
+    #    print(Error)
 
 def passcode_window():
     passcode_window = tk.Toplevel(root)

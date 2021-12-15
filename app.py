@@ -1,30 +1,25 @@
-import tkinter as tk # For Making GUI
-import openpyxl as op # For Working with Excel File
+import tkinter as tk
+from typing_extensions import get_args  # For Making GUI
+import openpyxl as op  # For Working with Excel File
 from tkinter import Canvas, messagebox, ttk
 from tkinter import Frame
 import time as t
-import os
-
-# Basic Credentials on the console
-"""os.system("cls")
-print("+----------------  H E L L O  T H E R E  !! -----------------+\n")
-t.sleep(0.2)
-print("+--- This ATM System Was Created By Wasif Ali & Marium Ilyas ---+\n")
-input('Press Enter To Continue...')
-"""
+from PIL import ImageTk, Image
 
 wb = op.load_workbook("users_info.xlsx", read_only=True)
 sheet = wb.worksheets[0]
 
+
 def passcode_available(code):
     row = 1
     while row <= sheet._max_row:
-        if ( sheet.cell(row=row, column=5).value == code ):
+        if sheet.cell(row=row, column=5).value == code:
             return True, row
         else:
             row += 1
     else:
         return False
+
 
 def get_user_info(row: int):
     name = sheet.cell(row=row, column=1).value
@@ -33,14 +28,16 @@ def get_user_info(row: int):
     balance = sheet.cell(row=row, column=4).value
     account_type = sheet.cell(row=row, column=6).value
     occupation = sheet.cell(row=row, column=7).value
+    image = sheet.cell(row=row, column=8).value
 
     return {
-        'name': name,
-        'age': age,
-        'cnic': cnic,
-        'balance': balance,
-        'account_type': account_type,
-        'occupation': occupation
+        "name": name,
+        "age": age,
+        "cnic": cnic,
+        "balance": balance,
+        "account_type": account_type,
+        "occupation": occupation,
+        "image": image,
     }
 
 
@@ -65,26 +62,74 @@ def credits_window(dev1, dev2):
 
 def proceed(password):
 
-    #try:
+    try:
         password = int(password)
         if password > 999 and password <= 9999:
-            if(passcode_available(password)[0]):
+            if passcode_available(password)[0]:
                 row = passcode_available(password)[1]
                 main_window = tk.Toplevel(root, bg="#97BFB4")
-                main_window.wm_geometry("800x500")
+                main_window.wm_geometry("700x500")
                 main_window.resizable(False, False)
-                welcome_label = tk.Label(main_window, font=("arial, 18"), text=f"Welcome !", bg="#97BFBF")
-                welcome_label.place(x=15, y=15)
+                welcome_label = tk.Label(
+                    main_window,
+                    font=("arial, 18"),
+                    text=f"Welcome To The ATM System!",
+                    bg="#97BFBF",
+                )
+                welcome_label.place(x=25, y=25)
                 print(get_user_info(row))
+                name_label = tk.Label(
+                    main_window,
+                    text=f"Name: {get_user_info(row)['name']}",
+                    bg="#97BFBF",
+                    font=("arial, 14"),
+                ).place(x=25, y=75)
+                age_label = tk.Label(
+                    main_window,
+                    text=f"Age: {get_user_info(row)['age']}",
+                    bg="#97BFBF",
+                    font=("arial, 14"),
+                ).place(x=275, y=120)
+                cnic_label = tk.Label(
+                    main_window,
+                    text=f"CNIC: {get_user_info(row)['cnic']}",
+                    bg="#97BFBF",
+                    font=("arial, 14"),
+                ).place(x=25, y=120)
+                age_label = tk.Label(
+                    main_window,
+                    text=f"Balance: {get_user_info(row)['balance']}",
+                    bg="#97BFBF",
+                    font=("arial, 14"),
+                ).place(x=275, y=165)
+                age_label = tk.Label(
+                    main_window,
+                    text=f"Account Type: {get_user_info(row)['account_type']}",
+                    bg="#97BFBF",
+                    font=("arial, 14"),
+                ).place(x=25, y=165)
+                age_label = tk.Label(
+                    main_window,
+                    text=f"Occupation: {get_user_info(row)['occupation']}",
+                    bg="#97BFBF",
+                    font=("arial, 14"),
+                ).place(x=275, y=75)
+                img = Image.open(f"./{get_user_info(row)['image']}")
+                img = img.resize((150, 180), Image.ANTIALIAS)
+                img = ImageTk.PhotoImage(img)
+                panel = tk.Label(main_window, image=img)
+                panel.image = img
+                panel.place(x=500, y=40)
 
         else:
             raise Exception
-    #except Exception as Error:
-    #    messagebox.showerror(
-    #        title="Error",
-    #        message="Invalid Input! \nOnly a 4 digits numberic value is allowed.",
-    #    )
-    #    print(Error)
+
+    except Exception as Error:
+        messagebox.showerror(
+            title="Error", message="Invalid Credentials",
+        )
+        print(Error)
+
 
 def passcode_window():
     passcode_window = tk.Toplevel(root)

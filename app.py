@@ -1,10 +1,9 @@
 import tkinter as tk
-from typing_extensions import get_args  # For Making GUI
 import openpyxl as op  # For Working with Excel File
 from tkinter import Canvas, messagebox, ttk
 from tkinter import Frame
 import time as t
-from PIL import ImageTk, Image
+from PIL import ImageTk, Image # Pillow Module for image prcoessing
 
 wb = op.load_workbook("users_info.xlsx", read_only=True)
 sheet = wb.worksheets[0]
@@ -60,6 +59,8 @@ def credits_window(dev1, dev2):
     plate.pack()
 
 
+# Getting all the user's data and displaying it on the main window
+
 def proceed(password):
 
     try:
@@ -77,7 +78,6 @@ def proceed(password):
                     bg="#97BFBF",
                 )
                 welcome_label.place(x=25, y=25)
-                print(get_user_info(row))
                 name_label = tk.Label(
                     main_window,
                     text=f"Name: {get_user_info(row)['name']}",
@@ -115,7 +115,7 @@ def proceed(password):
                     font=("arial, 14"),
                 ).place(x=275, y=75)
                 img = Image.open(f"./{get_user_info(row)['image']}")
-                img = img.resize((150, 180), Image.ANTIALIAS)
+                img = img.resize((180, 200), Image.ANTIALIAS)
                 img = ImageTk.PhotoImage(img)
                 panel = tk.Label(main_window, image=img)
                 panel.image = img
@@ -130,7 +130,7 @@ def proceed(password):
         )
         print(Error)
 
-
+# Creating The Window Where User Will Enter Passcode
 def passcode_window():
     passcode_window = tk.Toplevel(root)
     passcode_window.wm_geometry("300x200")

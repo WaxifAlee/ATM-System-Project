@@ -84,7 +84,7 @@ label = tk.Label(
 label.pack()
 
 btn_login = tk.Button(
-    frame, text="Login", padx=40, pady=10, command=lambda: passcode_window(False)
+    frame, text="Login", padx=40, pady=10, command=lambda: passcode_window()
 ).pack(pady=10)
 
 

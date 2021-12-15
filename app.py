@@ -1,15 +1,15 @@
 import tkinter as tk
 from tkinter import Canvas, Message, ttk
-from tkinter import Frame, filedialog
+from tkinter import Frame
 import time as t
 import os
 
 # Basic Credentials on the console
-"""os.system("cls")
+os.system("cls")
 print("+----------------  H E L L O  T H E R E  !! -----------------+\n")
 t.sleep(0.2)
 print("+--- This ATM System Was Created By Wasif Ali & Marium Ilyas ---+\n")
-input('Press Any Key To Continue...')"""
+input('Press Enter To Continue...')
 
 # Defining the functions for creating new windows
 

@@ -145,7 +145,9 @@ def whatever():
     # label=tk.label
     button = ttk.Button(new_window, text="abd").place(x=25, y=75)
     # Is ma q daalni command? Woh to buttons k liye hoti hy toh textbar ni show ho rha
+    # yhi problem thi?haanay ho gyi slve. Show ho rhi thi but tum ne boht neechy place k hui thi oka oka
     textbar = tk.Entry(new_window).place(x=25, y=30)
+    # ab jo asal ma krny aya ho gya solve github wala issue bhi. Mujhy araam nhi aana tha jab tk issy solve na kr leta :p peh gye thand? hahaha average wasif ali
 
 
 # Creating The Window Where User Will Enter Passcode

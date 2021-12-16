@@ -1,9 +1,9 @@
 import tkinter as tk
 import openpyxl as op  # For Working with Excel File
-from tkinter import Canvas, messagebox, ttk
+from tkinter import Canvas, mainloop, messagebox, ttk
 from tkinter import Frame
 import time as t
-from PIL import ImageTk, Image # Pillow Module for image prcoessing
+from PIL import ImageTk, Image  # Pillow Module for image prcoessing
 
 wb = op.load_workbook("users_info.xlsx", read_only=True)
 sheet = wb.worksheets[0]
@@ -48,10 +48,12 @@ def credits_window(dev1, dev2):
     credits_window.wm_geometry("400x200")
     credits_window.resizable(False, False)
     plate = Canvas(credits_window, height=300, width=300)
-    label1 = tk.Label(plate, text="Developers Of The Project:", font=("Arial, 16"))
+    label1 = tk.Label(
+        plate, text="Developers Of The Project:", font=("Arial, 16"))
     label1.pack(pady=10)
 
-    names_lbl = tk.Label(plate, text=f"Presented By:\n\n1. {dev1}\n       2. {dev2}")
+    names_lbl = tk.Label(
+        plate, text=f"Presented By:\n\n1. {dev1}\n       2. {dev2}")
     names_lbl.pack(pady=10)
     teach_lbl = tk.Label(plate, text=f"Submitted To: Miss Beenish Noor")
     teach_lbl.pack(pady=5)
@@ -121,6 +123,11 @@ def proceed(password):
                 panel.image = img
                 panel.place(x=500, y=40)
 
+                withdraw_btn = ttk.Button(
+                    main_window, text="Withdraw Money", command=lambda: whatever()).place(x=25, y=250)  # mjhy lga fzol h kya baat hy zabardast ok sorry tm cntinue rkho seasons bs yhi issue tha, ab theek ho jaye ga
+                moneytransfer_btn = ttk.Button(
+                    main_window, text="Money Transfer").place(x=175, y=250)
+
         else:
             raise Exception
 
@@ -129,6 +136,14 @@ def proceed(password):
             title="Error", message="Invalid Credentials",
         )
         print(Error)
+
+
+def whatever():
+    new_window = tk.Toplevel(root).pack()
+    # label=tk.label
+    Button = ttk.Button(new_window, text="abd").place(x=25, y=75)
+    # Textbar = tk.Entry
+
 
 # Creating The Window Where User Will Enter Passcode
 def passcode_window():

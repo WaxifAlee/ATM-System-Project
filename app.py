@@ -124,9 +124,10 @@ def proceed(password):
                 panel.place(x=500, y=40)
 
                 withdraw_btn = ttk.Button(
-                    main_window, text="Withdraw Money", command=lambda: whatever()).place(x=25, y=250)  # mjhy lga fzol h kya baat hy zabardast ok sorry tm cntinue rkho seasons bs yhi issue tha, ab theek ho jaye ga
+                    main_window, text="Withdraw Money", command=lambda: whatever()).place(x=25, y=250)  # idr command btao textbar k
                 moneytransfer_btn = ttk.Button(
                     main_window, text="Money Transfer").place(x=175, y=250)
+                # Textbar banany k liye? han nche daal dea h ab ismy command dalni
 
         else:
             raise Exception
@@ -139,10 +140,12 @@ def proceed(password):
 
 
 def whatever():
-    new_window = tk.Toplevel(root).pack()
+    # Is ko pack krny ki zaroorat nhi, my mistake
+    new_window = tk.Toplevel(root)
     # label=tk.label
-    Button = ttk.Button(new_window, text="abd").place(x=25, y=75)
-    # Textbar = tk.Entry
+    button = ttk.Button(new_window, text="abd").place(x=25, y=75)
+    # Is ma q daalni command? Woh to buttons k liye hoti hy toh textbar ni show ho rha
+    textbar = tk.Entry(new_window).place(x=25, y=30)
 
 
 # Creating The Window Where User Will Enter Passcode

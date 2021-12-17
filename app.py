@@ -1,10 +1,13 @@
 import tkinter as tk
+from tkinter import font
 from typing import Text
 import openpyxl as op  # For Working with Excel File
-from tkinter import Canvas, mainloop, messagebox, ttk
+from tkinter import Canvas, Grid, mainloop, messagebox, ttk
 from tkinter import Frame
 import time as t
-from PIL import ImageTk, Image  # Pillow Module for image prcoessing
+from PIL import ImageTk, Image
+# Pillow Module for image prcoessing
+from openpyxl.worksheet.dimensions import ColumnDimension, RowDimension
 
 wb = op.load_workbook("users_info.xlsx", read_only=True)
 sheet = wb.worksheets[0]
@@ -141,8 +144,9 @@ def proceed(password):
 
 def whatever():
     new_window = tk.Toplevel(root)
-    label = tk.label(new_window, Text='What are we').place(x=25, y=53)
-    button = ttk.Button(new_window, text="US").place(x=25, y=75)
+    label = tk.Label(new_window, text='What are we', bg="white",
+                     fg="black", font=("helvtica", 20, font.BOLD), pady=20).place(x=25, y=53)
+    button = ttk.Button(new_window, text="US", padding=20).place(x=75, y=25)
     textbar = tk.Entry(new_window).place(x=25, y=30)
 
 # Creating The Window Where User Will Enter Passcode

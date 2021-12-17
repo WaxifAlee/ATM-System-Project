@@ -1,4 +1,5 @@
 import tkinter as tk
+from typing import Text
 import openpyxl as op  # For Working with Excel File
 from tkinter import Canvas, mainloop, messagebox, ttk
 from tkinter import Frame
@@ -124,10 +125,9 @@ def proceed(password):
                 panel.place(x=500, y=40)
 
                 withdraw_btn = ttk.Button(
-                    main_window, text="Withdraw Money", command=lambda: whatever()).place(x=25, y=250)  # idr command btao textbar k
+                    main_window, text="Withdraw Money", command=lambda: whatever()).place(x=25, y=250)
                 moneytransfer_btn = ttk.Button(
                     main_window, text="Money Transfer").place(x=175, y=250)
-                # Textbar banany k liye? han nche daal dea h ab ismy command dalni
 
         else:
             raise Exception
@@ -140,17 +140,14 @@ def proceed(password):
 
 
 def whatever():
-    # Is ko pack krny ki zaroorat nhi, my mistake
     new_window = tk.Toplevel(root)
-    # label=tk.label
-    button = ttk.Button(new_window, text="abd").place(x=25, y=75)
-    # Is ma q daalni command? Woh to buttons k liye hoti hy toh textbar ni show ho rha
-    # yhi problem thi?haanay ho gyi slve. Show ho rhi thi but tum ne boht neechy place k hui thi oka oka
+    label = tk.label(new_window, Text='What are we').place(x=25, y=53)
+    button = ttk.Button(new_window, text="US").place(x=25, y=75)
     textbar = tk.Entry(new_window).place(x=25, y=30)
-    # ab jo asal ma krny aya ho gya solve github wala issue bhi. Mujhy araam nhi aana tha jab tk issy solve na kr leta :p peh gye thand? hahaha average wasif ali
-
 
 # Creating The Window Where User Will Enter Passcode
+
+
 def passcode_window():
     passcode_window = tk.Toplevel(root)
     passcode_window.wm_geometry("300x200")

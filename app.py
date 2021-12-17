@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import font
+from tkinter import _Padding, font
 from tkinter.constants import ANCHOR, CENTER
 from typing import Text
 import openpyxl as op  # For Working with Excel File
@@ -129,9 +129,9 @@ def proceed(password):
                 panel.place(x=500, y=40)
 
                 withdraw_btn = ttk.Button(
-                    main_window, text="Withdraw Money", command=lambda: whatever()).place(x=25, y=250)
+                    main_window, text="Withdraw Money", padding=20, command=lambda: withdraw_cash()).place(x=25, y=250)
                 moneytransfer_btn = ttk.Button(
-                    main_window, text="Money Transfer").place(x=175, y=250)
+                    main_window, text="Money Transfer", padding=20, command=lambda: money_transfer()).place(x=275, y=250)
 
         else:
             raise Exception
@@ -143,13 +143,18 @@ def proceed(password):
         print(Error)
 
 
-def whatever():
+def money_transfer():
     new_window = tk.Toplevel(root)
-    label = tk.Label(new_window, text='What are we', bg="white",
+    label = tk.Label(new_window, text="Enter account no", pady=200)
+    label.place(relx=.5, rely=.7, anchor='center')
+    textbar = tk.Entry(new_window).place(x=25, y=67)
+
+
+def withdraw_cash():
+    new_window = tk.Toplevel(root)
+    label = tk.Label(new_window, text='Enter amount', bg="white",
                      fg="black", font=("helvtica", 12, font.BOLD), pady=20)
     label.place(relx=.5, rely=.5, anchor="center")
-
-    button = ttk.Button(new_window, text="US").place(x=175, y=125)
     textbar = tk.Entry(new_window).place(x=225, y=230)
 
 # Creating The Window Where User Will Enter Passcode

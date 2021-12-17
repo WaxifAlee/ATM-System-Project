@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import font
+from tkinter.constants import ANCHOR, CENTER
 from typing import Text
 import openpyxl as op  # For Working with Excel File
 from tkinter import Canvas, Grid, mainloop, messagebox, ttk
@@ -145,9 +146,11 @@ def proceed(password):
 def whatever():
     new_window = tk.Toplevel(root)
     label = tk.Label(new_window, text='What are we', bg="white",
-                     fg="black", font=("helvtica", 20, font.BOLD), pady=20).place(x=25, y=53)
-    button = ttk.Button(new_window, text="US", padding=20).place(x=75, y=25)
-    textbar = tk.Entry(new_window).place(x=25, y=30)
+                     fg="black", font=("helvtica", 12, font.BOLD), pady=20)
+    label.place(relx=.5, rely=.5, anchor="center")
+
+    button = ttk.Button(new_window, text="US").place(x=175, y=125)
+    textbar = tk.Entry(new_window).place(x=225, y=230)
 
 # Creating The Window Where User Will Enter Passcode
 

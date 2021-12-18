@@ -3,6 +3,7 @@ from tkinter import messagebox
 from tkinter import ttk
 from tkinter import font
 from tkinter.constants import ANCHOR, CENTER, X
+from typing import Text
 import openpyxl as op  # For Working with Excel File
 import time as t
 from PIL import ImageTk, Image
@@ -144,13 +145,16 @@ def proceed(password):
 def money_transfer():
     new_window = tk.Toplevel(root)
     new_window.geometry("300x500")
+    new_window.configure(bg="#FFFAF0")
     label = tk.Label(new_window, text="ENTER ACCOUNT NO", bg="#FFFAF0",
                      fg="black", font=("sans-serif", 16, font.BOLD, font.ITALIC), pady=10)
     label.place(x=55, y=150)
-    new_window.configure(bg="#FFFAF0")
-    button = ttk.Button(new_window, text="Proceed").place(x=100, y=250)
-
     textbar = tk.Entry(new_window).place(x=75, y=200, height=30, width=175)
+    label2 = tk.label(new_window, text="ENTER AMOUNT", bg="#FFFAF0", fg="black", font=(
+        "sans-serif", 16, font.BOLD, font.ITALIC), pady=10)
+    label2.place(x=55, y=300)
+    textbar = tk.Entry(new_window).place(x=75, y=350, height=30, width=175)
+    button = ttk.Button(new_window, text="Proceed").place(x=100, y=500)
 
 
 def withdraw_cash():

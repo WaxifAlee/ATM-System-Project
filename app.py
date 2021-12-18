@@ -1,14 +1,12 @@
 import tkinter as tk
-from tkinter import _Padding, font
-from tkinter.constants import ANCHOR, CENTER
-from typing import Text
+from tkinter import messagebox
+from tkinter import ttk
+from tkinter import font
+from tkinter.constants import ANCHOR, CENTER, X
 import openpyxl as op  # For Working with Excel File
-from tkinter import Canvas, Grid, mainloop, messagebox, ttk
-from tkinter import Frame
 import time as t
 from PIL import ImageTk, Image
 # Pillow Module for image prcoessing
-from openpyxl.worksheet.dimensions import ColumnDimension, RowDimension
 
 wb = op.load_workbook("users_info.xlsx", read_only=True)
 sheet = wb.worksheets[0]
@@ -52,7 +50,7 @@ def credits_window(dev1, dev2):
     credits_window = tk.Toplevel(root)
     credits_window.wm_geometry("400x200")
     credits_window.resizable(False, False)
-    plate = Canvas(credits_window, height=300, width=300)
+    plate = tk.Canvas(credits_window, height=300, width=300)
     label1 = tk.Label(
         plate, text="Developers Of The Project:", font=("Arial, 16"))
     label1.pack(pady=10)
@@ -127,7 +125,6 @@ def proceed(password):
                 panel = tk.Label(main_window, image=img)
                 panel.image = img
                 panel.place(x=500, y=40)
-
                 withdraw_btn = ttk.Button(
                     main_window, text="Withdraw Money", padding=20, command=lambda: withdraw_cash()).place(x=25, y=250)
                 moneytransfer_btn = ttk.Button(
@@ -145,18 +142,25 @@ def proceed(password):
 
 def money_transfer():
     new_window = tk.Toplevel(root)
-    label = tk.Label(new_window, text="Enter account no", pady=200)
-    label.place(relx=.5, rely=.7, anchor='center')
-    textbar = tk.Entry(new_window).place(x=25, y=67)
+    new_window.geometry("300x500")
+    label = tk.Label(new_window, text="ENTER ACCOUNT NO", bg="#FFFAF0",
+                     fg="black", font=("sans-serif", 16, font.BOLD, font.ITALIC), pady=10)
+    label.place(x=75, y=150)
+    new_window.configure(bg="#FFFAF0")
+    button = ttk.Button(new_window, text="Proceed").place(x=100, y=250)
+
+    textbar = tk.Entry(new_window).place(x=75, y=200, height=30, width=150)
 
 
 def withdraw_cash():
     new_window = tk.Toplevel(root)
-    label = tk.Label(new_window, text='Enter amount', bg="white",
-                     fg="black", font=("helvtica", 12, font.BOLD), pady=20)
-    label.place(relx=.5, rely=.5, anchor="center")
-    textbar = tk.Entry(new_window).place(x=225, y=230)
-
+    new_window.geometry("300x500")
+    label = tk.Label(new_window, text='ENTER AMOUNT', bg="#FFFAF0",
+                     fg="black", font=("sans-serif", 16, font.BOLD, font.ITALIC), pady=10)
+    label.place(x=75, y=150)
+    new_window.configure(bg="#FFFAF0")
+    textbar = tk.Entry(new_window).place(x=75, y=200, height=30, width=150)
+    button = ttk.Button(new_window, text="Proceed").place(x=100, y=250)
 # Creating The Window Where User Will Enter Passcode
 
 
@@ -164,11 +168,11 @@ def passcode_window():
     passcode_window = tk.Toplevel(root)
     passcode_window.wm_geometry("300x200")
     passcode_window.resizable(False, False)
-    plate = Canvas(passcode_window, height=200, width=300)
+    plate = tk.Canvas(passcode_window, height=200, width=300)
     label1 = tk.Label(plate, text="Insert Your Passcode", font=("Arial, 16"))
     label1.pack(pady=10)
     passcode = tk.StringVar()
-    entry_passcode = ttk.Entry(plate, textvariable=passcode)
+    entry_passcode = tk.Entry(plate, textvariable=passcode)
     entry_passcode.pack()
     btn_check_passcode = ttk.Button(
         plate, text="OK", command=lambda: proceed(passcode.get()), width=20
@@ -185,7 +189,7 @@ root.title("ATM System")
 canvas = tk.Canvas(root, height=400, width=400, bg="#B8E4F0")
 canvas.pack()
 
-frame = Frame(root, bg="#98BAE7")
+frame = tk.Frame(root, bg="#98BAE7")
 frame.place(relheight=0.9, relwidth=0.9, relx=0.05, rely=0.05)
 
 label = tk.Label(

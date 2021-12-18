@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import Button, messagebox
 from tkinter import ttk
 from tkinter import font
 from tkinter.constants import ANCHOR, CENTER, X
@@ -127,7 +127,7 @@ def proceed(password):
                 panel.image = img
                 panel.place(x=500, y=40)
                 withdraw_btn = ttk.Button(
-                    main_window, text="Withdraw Money", padding=20, command=lambda: withdraw_cash()).place(x=25, y=250)
+                    main_window, text="Cash Withdrawal", padding=20, command=lambda: withdraw_cash()).place(x=25, y=250)
                 moneytransfer_btn = ttk.Button(
                     main_window, text="Money Transfer", padding=20, command=lambda: money_transfer()).place(x=275, y=250)
 
@@ -154,6 +154,14 @@ def money_transfer():
     label2.place(x=53, y=150)
     textbar = tk.Entry(new_window).place(x=55, y=200, height=30, width=175)
     button = ttk.Button(new_window, text="Proceed", padding=10).place(x=100, y=250)
+    label.place(x=55, y=50)
+    textbar = tk.Entry(new_window).place(x=75, y=100, height=30, width=175)
+    label2 = tk.Label(new_window, text="ENTER AMOUNT", bg="#FFFAF0", fg="black", font=(
+        "sans-serif", 16, font.BOLD, font.ITALIC), pady=10)
+    label2.place(x=55, y=150)
+    textbar = tk.Entry(new_window).place(x=75, y=200, height=30, width=175)
+    button = ttk.Button(new_window, text="Proceed",
+                        command=lambda: moneytransfer_confirmation()).place(x=100, y=300)
 
 
 def withdraw_cash():
@@ -164,7 +172,23 @@ def withdraw_cash():
     label.place(x=75, y=150)
     new_window.configure(bg="#FFFAF0")
     textbar = tk.Entry(new_window).place(x=75, y=200, height=30, width=150)
-    button = ttk.Button(new_window, text="Proceed").place(x=100, y=250)
+    button = ttk.Button(new_window, text="Proceed",
+                        command=lambda: withdraw_confirmation()).place(x=100, y=250)
+
+
+# Creating confirmation window
+def withdraw_confirmation():
+    new_window = tk.Toplevel(root, bg="#26BABF")
+    new_window.geometry("500x500")
+    button = ttk.Button(new_window, text="Pay now").place(x=50, y=50)
+
+
+def moneytransfer_confirmation():
+    new_window = tk.Toplevel(root, bg="#26BABF")
+    new_window.geometry("500x500")
+    Button = ttk.Button(new_window, text="Pay now").place(x=50, y=50)
+
+
 # Creating The Window Where User Will Enter Passcode
 
 

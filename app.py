@@ -73,7 +73,6 @@ def proceed(password):
         password = int(password)
         if password > 999 and password <= 9999:
             if passcode_available(password)[0]:
-                passcode_window.destroy()
                 row = passcode_available(password)[1]
                 main_window = tk.Toplevel(root, bg="#97BFB4")
                 main_window.wm_geometry("700x500")
@@ -150,7 +149,7 @@ def money_transfer():
                      fg="black", font=("sans-serif", 16, font.BOLD, font.ITALIC), pady=10)
     label.place(x=55, y=50)
     textbar = tk.Entry(new_window).place(x=75, y=100, height=30, width=175)
-    label2 = tk.label(new_window, text="ENTER AMOUNT", bg="#FFFAF0", fg="black", font=(
+    label2 = tk.Label(new_window, text="ENTER AMOUNT", bg="#FFFAF0", fg="black", font=(
         "sans-serif", 16, font.BOLD, font.ITALIC), pady=10)
     label2.place(x=55, y=150)
     textbar = tk.Entry(new_window).place(x=75, y=200, height=30, width=175)
@@ -170,7 +169,6 @@ def withdraw_cash():
 
 
 def passcode_window():
-    global passcode_window
     passcode_window = tk.Toplevel(root)
     passcode_window.wm_geometry("300x200")
     passcode_window.resizable(False, False)

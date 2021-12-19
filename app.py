@@ -153,15 +153,8 @@ def money_transfer():
         "sans-serif", 16, font.BOLD, font.ITALIC), pady=10)
     label2.place(x=53, y=150)
     textbar = tk.Entry(new_window).place(x=55, y=200, height=30, width=175)
-    button = ttk.Button(new_window, text="Proceed", padding=10).place(x=100, y=250)
-    label.place(x=55, y=50)
-    textbar = tk.Entry(new_window).place(x=75, y=100, height=30, width=175)
-    label2 = tk.Label(new_window, text="ENTER AMOUNT", bg="#FFFAF0", fg="black", font=(
-        "sans-serif", 16, font.BOLD, font.ITALIC), pady=10)
-    label2.place(x=55, y=150)
-    textbar = tk.Entry(new_window).place(x=75, y=200, height=30, width=175)
     button = ttk.Button(new_window, text="Proceed",
-                        command=lambda: moneytransfer_confirmation()).place(x=100, y=300)
+                        command=lambda: moneytransfer_confirmation(), padding=10, width=20).place(x=70, y=250)
 
 
 def withdraw_cash():
@@ -169,10 +162,10 @@ def withdraw_cash():
     new_window.geometry("300x500")
     label = tk.Label(new_window, text='ENTER AMOUNT', bg="#FFFAF0",
                      fg="black", font=("sans-serif", 16, font.BOLD, font.ITALIC), pady=10)
-    label.place(x=75, y=150)
+    label.place(x=65, y=150)
     new_window.configure(bg="#FFFAF0")
     textbar = tk.Entry(new_window).place(x=75, y=200, height=30, width=150)
-    button = ttk.Button(new_window, text="Proceed",
+    button = ttk.Button(new_window, text="Proceed", width=15,
                         command=lambda: withdraw_confirmation()).place(x=100, y=250)
 
 

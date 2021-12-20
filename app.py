@@ -9,7 +9,7 @@ import time as t
 from PIL import ImageTk, Image
 # Pillow Module for image prcoessing
 
-wb = op.load_workbook("users_info.xlsx", read_only=True)
+wb = op.load_workbook("users_info.xlsx")
 sheet = wb.worksheets[0]
 
 

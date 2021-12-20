@@ -196,15 +196,16 @@ def moneytransfer_confirmation(amount, reciever_account):
             confirm_transfer = askyesno("Confirm The Transfer", f"From: {sender_name} \nTo: {reciever_name}\n Amount: {amount}" )
 
             if confirm_transfer:
-                new_balance = currentBalance - amount # Of sender
-                set_balance(new_balance, users_row)
-                new_balance = int(get_user_info(receiver_row)['balance']) + amount # Of reciever
-                set_balance(new_balance, receiver_row)
-                messagebox.showinfo("Success", f"The Transaction Was Successful. Your Remaining Balance Is {currentBalance - amount}")
-
-            #new_window = tk.Toplevel(root, bg="#26BABF")
-            #new_window.geometry("500x500")
-            #button = ttk.Button(new_window, text="Pay now").place(x=50, y=50)
+                try:
+                    new_balance = currentBalance - amount # Of sender
+                    set_balance(new_balance, users_row)
+                    new_balance = int(get_user_info(receiver_row)['balance']) + amount # Of reciever
+                    set_balance(new_balance, receiver_row)
+                    messagebox.showinfo("Success", f"The Transaction Was Successful. Your Remaining Balance Is {currentBalance - amount}")
+                except:
+                    messagebox.showerror("Error", "Something went wrong. Try Again!")
+            else:
+                messagebox.showwarning("Cancelled", "The Transaction Was Cancelled.")
 
     except Exception as ex:
         #messagebox.showerror("Oops", "Something went wrong. Please try again.")

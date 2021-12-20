@@ -1,21 +1,23 @@
+from extra_functions import *
 import tkinter as tk
-from tkinter import Button, messagebox
+from tkinter import IntVar, messagebox
+from tkinter.messagebox import askyesno
 from tkinter import ttk
 from tkinter import font
-from tkinter.constants import ANCHOR, CENTER, X
-from typing import Text
+from tkinter.constants import ANCHOR, CENTER, FALSE, X
 import openpyxl as op  # For Working with Excel File
-import time as t
 from PIL import ImageTk, Image
 # Pillow Module for image prcoessing
 
-wb = op.load_workbook("users_info.xlsx")
+
+# Loading the excel worksheet in order to interact with the users data
+wb = op.load_workbook("users_info.xlsx", read_only=False)
 sheet = wb.worksheets[0]
 
 
 def passcode_available(code):
     row = 1
-    while row <= sheet._max_row:
+    while row <= sheet.max_row:
         if sheet.cell(row=row, column=5).value == code:
             return True, row
         else:
@@ -68,14 +70,14 @@ def credits_window(dev1, dev2):
 # Getting all the user's data and displaying it on the main window
 
 def proceed(password):
-
     try:
         password = int(password)
-        if password > 999 and password <= 9999:
+        if password > 999 and password <= 9999: # Password must be of 4 numeric digits
             if passcode_available(password)[0]:
-                row = passcode_available(password)[1]
+                global users_row
+                users_row = passcode_available(password)[1]
                 main_window = tk.Toplevel(root, bg="#97BFB4")
-                main_window.wm_geometry("700x500")
+                main_window.wm_geometry("700x350")
                 main_window.resizable(False, False)
                 welcome_label = tk.Label(
                     main_window,
@@ -86,41 +88,41 @@ def proceed(password):
                 welcome_label.place(x=25, y=25)
                 name_label = tk.Label(
                     main_window,
-                    text=f"Name: {get_user_info(row)['name']}",
+                    text=f"Name: {get_user_info(users_row)['name']}",
                     bg="#97BFBF",
                     font=("arial, 14"),
                 ).place(x=25, y=75)
                 age_label = tk.Label(
                     main_window,
-                    text=f"Age: {get_user_info(row)['age']}",
+                    text=f"Age: {get_user_info(users_row)['age']}",
                     bg="#97BFBF",
                     font=("arial, 14"),
                 ).place(x=275, y=120)
                 cnic_label = tk.Label(
                     main_window,
-                    text=f"Account no: {get_user_info(row)['account']}",
+                    text=f"Account no: {get_user_info(users_row)['account']}",
                     bg="#97BFBF",
                     font=("arial, 14"),
                 ).place(x=25, y=120)
                 age_label = tk.Label(
                     main_window,
-                    text=f"Balance: {get_user_info(row)['balance']}",
+                    text=f"Balance: {get_user_info(users_row)['balance']}",
                     bg="#97BFBF",
                     font=("arial, 14"),
                 ).place(x=275, y=165)
                 age_label = tk.Label(
                     main_window,
-                    text=f"Account Type: {get_user_info(row)['account_type']}",
+                    text=f"Account Type: {get_user_info(users_row)['account_type']}",
                     bg="#97BFBF",
                     font=("arial, 14"),
                 ).place(x=25, y=165)
                 age_label = tk.Label(
                     main_window,
-                    text=f"Occupation: {get_user_info(row)['occupation']}",
+                    text=f"Occupation: {get_user_info(users_row)['occupation']}",
                     bg="#97BFBF",
                     font=("arial, 14"),
                 ).place(x=275, y=75)
-                img = Image.open(f"./{get_user_info(row)['image']}")
+                img = Image.open(f"./{get_user_info(users_row)['image']}")
                 img = img.resize((180, 200), Image.ANTIALIAS)
                 img = ImageTk.PhotoImage(img)
                 panel = tk.Label(main_window, image=img)
@@ -138,7 +140,7 @@ def proceed(password):
         messagebox.showerror(
             title="Error", message="Invalid Credentials",
         )
-        print(Error)
+        #print(Error)
 
 
 def money_transfer():
@@ -148,13 +150,15 @@ def money_transfer():
     label = tk.Label(new_window, text="ENTER ACCOUNT NO", bg="#FFFAF0",
                      fg="black", font=("sans-serif", 16, font.BOLD, font.ITALIC), pady=10)
     label.place(x=40, y=50)
-    textbar = tk.Entry(new_window).place(x=55, y=100, height=30, width=175)
+    account = tk.StringVar()
+    textbar1 = tk.Entry(new_window, textvariable=account).place(x=55, y=100, height=30, width=175)
     label2 = tk.Label(new_window, text="ENTER AMOUNT", bg="#FFFAF0", fg="black", font=(
         "sans-serif", 16, font.BOLD, font.ITALIC), pady=10)
     label2.place(x=53, y=150)
-    textbar = tk.Entry(new_window).place(x=55, y=200, height=30, width=175)
+    amount = tk.IntVar()
+    textbar2 = tk.Entry(new_window, textvariable=amount).place(x=55, y=200, height=30, width=175)
     button = ttk.Button(new_window, text="Proceed",
-                        command=lambda: moneytransfer_confirmation(), padding=10, width=20).place(x=70, y=250)
+                        command=lambda: moneytransfer_confirmation(amount= amount.get(), reciever_account=account.get()), padding=10, width=20).place(x=70, y=250)
 
 
 def withdraw_cash():
@@ -166,25 +170,47 @@ def withdraw_cash():
     new_window.configure(bg="#FFFAF0")
     textbar = tk.Entry(new_window).place(x=75, y=200, height=30, width=150)
     button = ttk.Button(new_window, text="Proceed", width=15,
-                        command=lambda: withdraw_confirmation()).place(x=100, y=250)
+                        command=lambda: withdraw_confirmation_window()).place(x=100, y=250)
 
 
 # Creating confirmation window
-def withdraw_confirmation():
+def withdraw_confirmation_window():
     new_window = tk.Toplevel(root, bg="#26BABF")
     new_window.geometry("500x500")
     button = ttk.Button(new_window, text="Pay now").place(x=50, y=50)
 
 
-def moneytransfer_confirmation():
-    new_window = tk.Toplevel(root, bg="#26BABF")
-    new_window.geometry("500x500")
-    Button = ttk.Button(new_window, text="Pay now").place(x=50, y=50)
+def moneytransfer_confirmation(amount, reciever_account):
+    try:
+        senderAccountNumber = str(get_user_info(users_row)['account'])
+        currentBalance = int(get_user_info(users_row)['balance'])
+        reciever_exists = search_transfer_account(senderAccountNumber, reciever_account)[0] # 0 indicated for boolean
+        sufficent_balance = enough_balance(amount, currentBalance)
 
+        #print(senderAccountNumber, currentBalance, reciever_exists, sufficent_balance)
+
+        if (reciever_exists and sufficent_balance):
+            receiver_row = search_transfer_account(senderAccountNumber, reciever_account)[1] # 1 is the index for row of the reciever in excel sheet
+            reciever_name = get_reciever_name(receiver_row)
+            sender_name = get_user_info(users_row)['name']
+            confirm_transfer = askyesno("Confirm The Transfer", f"From: {sender_name} \nTo: {reciever_name}\n Amount: {amount}" )
+
+            if confirm_transfer:
+                new_balance = currentBalance - amount # Of sender
+                set_balance(new_balance, users_row)
+                new_balance = int(get_user_info(receiver_row)['balance']) + amount # Of reciever
+                set_balance(new_balance, receiver_row)
+                messagebox.showinfo("Success", f"The Transaction Was Successful. Your Remaining Balance Is {currentBalance - amount}")
+
+            #new_window = tk.Toplevel(root, bg="#26BABF")
+            #new_window.geometry("500x500")
+            #button = ttk.Button(new_window, text="Pay now").place(x=50, y=50)
+
+    except Exception as ex:
+        #messagebox.showerror("Oops", "Something went wrong. Please try again.")
+        print(ex)
 
 # Creating The Window Where User Will Enter Passcode
-
-
 def passcode_window():
     passcode_window = tk.Toplevel(root)
     passcode_window.wm_geometry("300x200")

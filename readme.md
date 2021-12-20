@@ -7,5 +7,6 @@
 - tkinter (To create a Graphical User Interface of the application)
 - pillow (To insert images inside the application)
 - the excel file "users_info.xlsx" and the 4 images for the dummy data
+- extra_functions.py module which contains necessary functions
 - To Install the dependenice, use the following command in cmd
 - python -m pip install -r "dependencies.txt"

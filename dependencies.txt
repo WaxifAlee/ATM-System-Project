@@ -1,0 +1,2 @@
+pillow # for images
+openpyxl # for excel sheets

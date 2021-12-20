@@ -1,0 +1,11 @@
+- General Overview
+- THIS APPLICATION WAS CREATED AS A SEMESTER PROJECT
+- Developers are Wasif Ali [FA21-BCS-035] and Marium Ilyas [FA21-BCS-024]
+
+- DEPENDENCIES
+- openpyxl (For handling excel sheets in order to read and write data)
+- tkinter (To create a Graphical User Interface of the application)
+- pillow (To insert images inside the application)
+- the excel file "users_info.xlsx" and the 4 images for the dummy data
+- To Install the dependenice, use the following command in cmd
+- python -m pip install -r "dependencies.txt"

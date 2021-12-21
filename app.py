@@ -1,14 +1,16 @@
 from extra_functions import *
 import tkinter as tk
-from tkinter import IntVar, messagebox
+from tkinter import messagebox
 from tkinter.messagebox import askyesno
 from tkinter import ttk
 from tkinter import font
-from tkinter.constants import ANCHOR, CENTER, FALSE, X
 import openpyxl as op  # For Working with Excel File
 from PIL import ImageTk, Image
+from os import system
 # Pillow Module for image prcoessing
 
+system("color 0a")
+system("cls")
 
 # Loading the excel worksheet in order to interact with the users data
 wb = op.load_workbook("users_info.xlsx", read_only=False)
@@ -208,7 +210,6 @@ def moneytransfer_confirmation(amount, reciever_account):
                 messagebox.showwarning("Cancelled", "The Transaction Was Cancelled.")
 
     except Exception as ex:
-        #messagebox.showerror("Oops", "Something went wrong. Please try again.")
         print(ex)
 
 # Creating The Window Where User Will Enter Passcode

@@ -29,3 +29,4 @@ def enough_balance(amount: int, currentBalance: int):
 def set_balance(new_balance:int, row:int):
     sheet.cell(row=row, column=4).value = new_balance
     wb.save("users_info.xlsx")
+

@@ -258,7 +258,7 @@ btn_login = ttk.Button(
 
 btn_credits = ttk.Button(
     frame,
-    padding=10,
+    padding=10,  
     text="About Developers",
     command=lambda: credits_window(
         "Wasif Ali [FA21-BCS-035]", "Marium Ilyas [FA21-BCS-024]"

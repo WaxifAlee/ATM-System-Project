@@ -74,7 +74,7 @@ def credits_window(dev1, dev2):
 def proceed(password):
     try:
         password = int(password)
-        if password > 999 and password <= 9999: # Password must be of 4 numeric digits
+        if password > 999 and password <= 9999:  # Password must be of 4 numeric digits
             if passcode_available(password)[0]:
                 global users_row
                 users_row = passcode_available(password)[1]
@@ -142,7 +142,7 @@ def proceed(password):
         messagebox.showerror(
             title="Error", message="Invalid Credentials",
         )
-        #print(Error)
+        # print(Error)
 
 
 def money_transfer():
@@ -153,14 +153,16 @@ def money_transfer():
                      fg="black", font=("sans-serif", 16, font.BOLD, font.ITALIC), pady=10)
     label.place(x=40, y=50)
     account = tk.StringVar()
-    textbar1 = tk.Entry(new_window, textvariable=account).place(x=55, y=100, height=30, width=175)
+    textbar1 = tk.Entry(new_window, textvariable=account).place(
+        x=55, y=100, height=30, width=175)
     label2 = tk.Label(new_window, text="ENTER AMOUNT", bg="#FFFAF0", fg="black", font=(
         "sans-serif", 16, font.BOLD, font.ITALIC), pady=10)
     label2.place(x=53, y=150)
     amount = tk.IntVar()
-    textbar2 = tk.Entry(new_window, textvariable=amount).place(x=55, y=200, height=30, width=175)
+    textbar2 = tk.Entry(new_window, textvariable=amount).place(
+        x=55, y=200, height=30, width=175)
     button = ttk.Button(new_window, text="Proceed",
-                        command=lambda: moneytransfer_confirmation(amount= amount.get(), reciever_account=account.get()), padding=10, width=20).place(x=70, y=250)
+                        command=lambda: moneytransfer_confirmation(amount=amount.get(), reciever_account=account.get()), padding=10, width=20).place(x=70, y=250)
 
 
 def withdraw_cash():
@@ -170,49 +172,63 @@ def withdraw_cash():
                      fg="black", font=("sans-serif", 16, font.BOLD, font.ITALIC), pady=10)
     label.place(x=65, y=150)
     new_window.configure(bg="#FFFAF0")
-    textbar = tk.Entry(new_window).place(x=75, y=200, height=30, width=150)
+    amount = tk.IntVar()
+    textbar = tk.Entry(new_window, textvariable=amount).place(
+        x=75, y=200, height=30, width=150)
     button = ttk.Button(new_window, text="Proceed", width=15,
-                        command=lambda: withdraw_confirmation_window()).place(x=100, y=250)
+                        command=lambda: withdraw_confirmation_window(amount.get())).place(x=100, y=250)
 
 
 # Creating confirmation window
-def withdraw_confirmation_window():
-    new_window = tk.Toplevel(root, bg="#26BABF")
-    new_window.geometry("500x500")
-    button = ttk.Button(new_window, text="Pay now").place(x=50, y=50)
+def withdraw_confirmation_window(amount):
+    confirm_withdraw = askyesno(
+        "Confirm Withdraw", f"Confirm the withdrawl of {amount}?")
+    if confirm_withdraw:
+        current_balance = int(get_user_info(users_row)['balance'])
+        set_balance(current_balance - amount, users_row)
+        messagebox.showinfo("Success", "Your transaction was successful")
 
 
 def moneytransfer_confirmation(amount, reciever_account):
     try:
         senderAccountNumber = str(get_user_info(users_row)['account'])
         currentBalance = int(get_user_info(users_row)['balance'])
-        reciever_exists = search_transfer_account(senderAccountNumber, reciever_account)[0] # 0 indicated for boolean
+        reciever_exists = search_transfer_account(senderAccountNumber, reciever_account)[
+            0]  # 0 indicated for boolean
         sufficent_balance = enough_balance(amount, currentBalance)
 
         #print(senderAccountNumber, currentBalance, reciever_exists, sufficent_balance)
 
         if (reciever_exists and sufficent_balance):
-            receiver_row = search_transfer_account(senderAccountNumber, reciever_account)[1] # 1 is the index for row of the reciever in excel sheet
+            receiver_row = search_transfer_account(senderAccountNumber, reciever_account)[
+                1]  # 1 is the index for row of the reciever in excel sheet
             reciever_name = get_reciever_name(receiver_row)
             sender_name = get_user_info(users_row)['name']
-            confirm_transfer = askyesno("Confirm The Transfer", f"From: {sender_name} \nTo: {reciever_name}\n Amount: {amount}" )
+            confirm_transfer = askyesno(
+                "Confirm The Transfer", f"From: {sender_name} \nTo: {reciever_name}\n Amount: {amount}")
 
             if confirm_transfer:
                 try:
-                    new_balance = currentBalance - amount # Of sender
+                    new_balance = currentBalance - amount  # Of sender
                     set_balance(new_balance, users_row)
-                    new_balance = int(get_user_info(receiver_row)['balance']) + amount # Of reciever
+                    new_balance = int(get_user_info(receiver_row)[
+                                      'balance']) + amount  # Of reciever
                     set_balance(new_balance, receiver_row)
-                    messagebox.showinfo("Success", f"The Transaction Was Successful. Your Remaining Balance Is {currentBalance - amount}")
+                    messagebox.showinfo(
+                        "Success", f"The Transaction Was Successful. Your Remaining Balance Is {currentBalance - amount}")
                 except:
-                    messagebox.showerror("Error", "Something went wrong. Try Again!")
+                    messagebox.showerror(
+                        "Error", "Something went wrong. Try Again!")
             else:
-                messagebox.showwarning("Cancelled", "The Transaction Was Cancelled.")
+                messagebox.showwarning(
+                    "Cancelled", "The Transaction Was Cancelled.")
 
     except Exception as ex:
         print(ex)
 
 # Creating The Window Where User Will Enter Passcode
+
+
 def passcode_window():
     passcode_window = tk.Toplevel(root)
     passcode_window.wm_geometry("300x200")

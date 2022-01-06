@@ -1,6 +1,6 @@
 from extra_functions import *
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import  messagebox
 from tkinter.messagebox import askyesno
 from tkinter import ttk
 from tkinter import font
@@ -234,9 +234,10 @@ def passcode_window():
     passcode_window.wm_geometry("300x200")
     passcode_window.resizable(False, False)
     plate = tk.Canvas(passcode_window, height=200, width=300)
-    label1 = tk.Label(plate, text="Insert Your Passcode", font=("Arial, 16"))
+    label1 = tk.Label(plate, text="Insert Your Passcode & User ID", font=("Arial, 16"))
     label1.pack(pady=10)
     passcode = tk.StringVar()
+    user_id = tk.StringVar()
     entry_passcode = tk.Entry(plate, textvariable=passcode)
     entry_passcode.pack()
     btn_check_passcode = ttk.Button(
